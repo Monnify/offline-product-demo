@@ -1,0 +1,204 @@
+{
+  "info": {
+    "name": "MonieEstate — Monnify Offline Pay-in",
+    "description": "Test collection for MonieEstate Monnify offline payment integration",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    { "key": "baseUrl", "value": "http://localhost:3000" },
+    { "key": "transactionRef", "value": "MNFY|66|20241201120000|000001" }
+  ],
+  "item": [
+    {
+      "name": "🏘️ System",
+      "item": [
+        {
+          "name": "Health Check",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/health"
+          }
+        }
+      ]
+    },
+    {
+      "name": "📋 Plans",
+      "item": [
+        {
+          "name": "List All Plans",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/plans"
+          }
+        },
+        {
+          "name": "Get Plan — STARTER",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/plans/STARTER"
+          }
+        },
+        {
+          "name": "Get Plan — HOME",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/plans/HOME"
+          }
+        },
+        {
+          "name": "Get Plan — PREMIUM",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/plans/PREMIUM"
+          }
+        }
+      ]
+    },
+    {
+      "name": "👤 Residents",
+      "item": [
+        {
+          "name": "Get Resident — ME001A",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/residents/ME001A"
+          }
+        },
+        {
+          "name": "Get Resident — ME004D (Suspended)",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/residents/ME004D"
+          }
+        },
+        {
+          "name": "Get Resident — NOT FOUND",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/residents/XX999Z"
+          }
+        }
+      ]
+    },
+    {
+      "name": "⚡ Monnify Offline Pay-in",
+      "item": [
+        {
+          "name": "1. Verify Payer — Active Resident + HOME Plan",
+          "request": {
+            "method": "POST",
+            "url": "{{baseUrl}}/monnify/verify-payer",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"productCode\": \"P10101\",\n  \"paymentRecipientId\": \"ME001A:HOME\"\n}"
+            }
+          }
+        },
+        {
+          "name": "1. Verify Payer — STARTER Plan",
+          "request": {
+            "method": "POST",
+            "url": "{{baseUrl}}/monnify/verify-payer",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"productCode\": \"P10101\",\n  \"paymentRecipientId\": \"ME002B:STARTER\"\n}"
+            }
+          }
+        },
+        {
+          "name": "1. Verify Payer — PREMIUM Plan",
+          "request": {
+            "method": "POST",
+            "url": "{{baseUrl}}/monnify/verify-payer",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"productCode\": \"P10101\",\n  \"paymentRecipientId\": \"ME005E:PREMIUM\"\n}"
+            }
+          }
+        },
+        {
+          "name": "1. Verify Payer — Suspended Account (Should Fail)",
+          "request": {
+            "method": "POST",
+            "url": "{{baseUrl}}/monnify/verify-payer",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"productCode\": \"P10101\",\n  \"paymentRecipientId\": \"ME004D:HOME\"\n}"
+            }
+          }
+        },
+        {
+          "name": "1. Verify Payer — Non-existent Resident (Should Fail)",
+          "request": {
+            "method": "POST",
+            "url": "{{baseUrl}}/monnify/verify-payer",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"productCode\": \"P10101\",\n  \"paymentRecipientId\": \"XX999Z:HOME\"\n}"
+            }
+          }
+        },
+        {
+          "name": "1. Verify Payer — Invalid Plan Code (Should Fail)",
+          "request": {
+            "method": "POST",
+            "url": "{{baseUrl}}/monnify/verify-payer",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"productCode\": \"P10101\",\n  \"paymentRecipientId\": \"ME001A:GOLD\"\n}"
+            }
+          }
+        },
+        {
+          "name": "2. Payment Request — HOME Plan (₦5000)",
+          "request": {
+            "method": "POST",
+            "url": "{{baseUrl}}/monnify/payment-request",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"amount\": 5000,\n  \"transactionReference\": \"{{transactionRef}}\",\n  \"productCode\": \"P10101\",\n  \"paymentRecipientId\": \"ME001A:HOME\"\n}"
+            }
+          }
+        },
+        {
+          "name": "2. Payment Request — STARTER Plan (₦2000)",
+          "request": {
+            "method": "POST",
+            "url": "{{baseUrl}}/monnify/payment-request",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"amount\": 2000,\n  \"transactionReference\": \"MNFY|66|20241201130000|000002\",\n  \"productCode\": \"P10101\",\n  \"paymentRecipientId\": \"ME002B:STARTER\"\n}"
+            }
+          }
+        },
+        {
+          "name": "3. Payment Requery",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/monnify/payment-requery?transactionReference={{transactionRef}}",
+              "query": [
+                { "key": "transactionReference", "value": "{{transactionRef}}" }
+              ]
+            }
+          }
+        },
+        {
+          "name": "3. Payment Requery — URL Encoded Ref",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/monnify/payment-requery?transactionReference=MNFY%7C66%7C20241201120000%7C000001"
+          }
+        }
+      ]
+    }
+  ]
+}
