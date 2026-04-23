@@ -1,0 +1,96 @@
+{
+  "residents": [
+    {
+      "houseNumber": "ME001A",
+      "fullName": "Adaeze Okonkwo",
+      "phone": "08012345678",
+      "email": "adaeze@email.com",
+      "status": "ACTIVE",
+      "currentUnits": 270,
+      "createdAt": "2026-04-23T13:52:21.051Z"
+    },
+    {
+      "houseNumber": "ME002B",
+      "fullName": "Babatunde Lawal",
+      "phone": "08023456789",
+      "email": "babatunde@email.com",
+      "status": "ACTIVE",
+      "currentUnits": 45,
+      "createdAt": "2026-04-23T13:52:21.051Z"
+    },
+    {
+      "houseNumber": "ME003C",
+      "fullName": "Chioma Eze",
+      "phone": "08034567890",
+      "email": "chioma@email.com",
+      "status": "ACTIVE",
+      "currentUnits": 0,
+      "createdAt": "2026-04-23T13:52:21.051Z"
+    },
+    {
+      "houseNumber": "ME004D",
+      "fullName": "Danladi Musa",
+      "phone": "08045678901",
+      "email": "danladi@email.com",
+      "status": "SUSPENDED",
+      "currentUnits": 200,
+      "createdAt": "2026-04-23T13:52:21.051Z"
+    },
+    {
+      "houseNumber": "ME005E",
+      "fullName": "Emeka Obiora",
+      "phone": "08056789012",
+      "email": "emeka@email.com",
+      "status": "ACTIVE",
+      "currentUnits": 75,
+      "createdAt": "2026-04-23T13:52:21.051Z"
+    }
+  ],
+  "plans": [
+    {
+      "planCode": "STARTER",
+      "planName": "Starter Plan",
+      "amount": 2000,
+      "units": 50,
+      "description": "50 units - ideal for a single room occupant",
+      "status": "ACTIVE"
+    },
+    {
+      "planCode": "HOME",
+      "planName": "Home Plan",
+      "amount": 5000,
+      "units": 150,
+      "description": "150 units - perfect for a 2-3 bedroom apartment",
+      "status": "ACTIVE"
+    },
+    {
+      "planCode": "PREMIUM",
+      "planName": "Premium Plan",
+      "amount": 10000,
+      "units": 350,
+      "description": "350 units - great for large homes with heavy appliances",
+      "status": "ACTIVE"
+    },
+    {
+      "planCode": "BUSINESS",
+      "planName": "Business Plan",
+      "amount": 25000,
+      "units": 1000,
+      "description": "1000 units - designed for home office / small business",
+      "status": "ACTIVE"
+    }
+  ],
+  "transactions": [
+    {
+      "transactionRef": "MNFY|66|20241201120000|000001",
+      "houseNumber": "ME001A",
+      "planCode": "HOME",
+      "amount": 5000,
+      "unitsPurchased": 150,
+      "powerToken": "1776-9532-1931-1428",
+      "status": "SUCCESS",
+      "createdAt": "2026-04-23T14:06:59.313Z",
+      "updatedAt": "2026-04-23T14:06:59.313Z"
+    }
+  ]
+}
